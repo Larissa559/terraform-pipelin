@@ -1,0 +1,68 @@
+pipeline {
+    tools {
+        terraform 'terraform'
+    }
+    agent any
+
+    stages {
+        stage('Initialization') {
+            steps {
+                sh 'terraform init'
+            }
+        }
+       stage('Validate') {
+            steps {
+                echo 'starting validaion'
+                sh 'date'
+                sh 'terraform validate'
+            }
+        } 
+        stage('Plan') {
+            steps {
+                echo 'planning started'
+                echo 'date'
+                sh 'terraform plan'
+            }
+        }
+        stage('Apply') {
+            steps {
+                echo 'deploy to aws'
+                echo 'date'
+                sh 'terraform apply --auto-approve'
+            }
+        }
+    }
+}
+
+/*pipeline {
+    agent any
+
+    stages {
+        stage('Initialization') {
+            steps {
+                sh 'terraform init'
+            }
+        }
+       stage('Validate') {
+            steps {
+                echo 'starting validaion'
+                sh 'date'
+                sh 'terraform validate'
+            }
+        } 
+        stage('Plan') {
+            steps {
+                echo 'planning started'
+                echo 'date'
+                sh 'terraform plan'
+            }
+        }
+        stage('Apply') {
+            steps {
+                echo 'deploying to aws'
+                echo 'date'
+                sh 'terraform apply --auto-approve'
+            }
+        }
+    }
+}*/
